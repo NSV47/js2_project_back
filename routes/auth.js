@@ -10,23 +10,30 @@ const jwt = require("jsonwebtoken")
 //     }
 // ]
 
-router.get('/', (req, res) => {
-    News.find().then(news => {
-        res.send(news)
-    })
+// Залогиниться - найти пользователя, сверить пароль с БД
+router.post('/login', (req, res) => {
+    let {username, password} = req.body
+    // News.find().then(news => {
+    //     res.send(news)
+    // })
+    // console.log(news)
+})
+
+router.post('/logout', (req, res) => {
+    res.send('ok')
     // console.log(news)
 })
 
 router.put('/', (req, res) => {
-    // jwt.verify(token, 'shhhhh', function(err, decoded) {
-    //     console.log(decoded.foo) // bar
-        // if (err) res.send(err)
+    jwt.verify(token, 'shhhhh', function(err, decoded) {
+        console.log(decoded.foo) // bar
+        if (err) res.send(err)
         console.log(req.body)
         // let nw = req.body
         let news = new News(req.body);
         news.save().then(news => {
         res.send(news)
-    // })
+    })
     //news.push(nw)
     // nw.id = 300
     // res.send("Файл news.js на сервере")
